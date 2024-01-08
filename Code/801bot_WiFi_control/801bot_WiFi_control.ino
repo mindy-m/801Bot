@@ -33,6 +33,7 @@ AsyncWebSocket ws("/ws");
 
 int xValue = 0;
 int yValue = 0;
+int color = 0xFFFFFF;
 
 void onEvent(AsyncWebSocket * server, AsyncWebSocketClient * client, AwsEventType type, void * arg, uint8_t *data, size_t len){
   String message = (char*)data;
@@ -41,6 +42,11 @@ void onEvent(AsyncWebSocket * server, AsyncWebSocketClient * client, AwsEventTyp
     xValue = message.substring(1).toInt();
   } else if (message.startsWith("Y")) {
     yValue = message.substring(1).toInt();
+  } else if (message.startsWith("#")) {
+    // Gross C++?
+    color = strtoul(message.substring(1).c_str(), 0, 16);
+    Serial.print("Got color value ");
+    Serial.print(color);
   }
 
 //  updateServos();
@@ -112,123 +118,11 @@ void updateServos() {
 */
 
 void loop() {
-  rgb.fill(0x0f0000);  //RED
-  delay(1000);
-  rgb.fill(0x0f00);  //GREEN
-  delay(1000);
-  rgb.fill(0x0f);  //BLUE
-  delay(1000);
-  rgb.fill(0x0);
-  delay(1000);
 
   for (int a = 0; a < LED_COUNT; a++) {
-    rgb.setPixel(a, 0x0f0000);
+    rgb.setPixel(a, color);
     delay(10);
   }
 
-  for (int a = 0; a < LED_COUNT; a++) {
-    rgb.setPixel(a, 0x0f00);
-    delay(10);
-  }
-
-  for (int a = 0; a < LED_COUNT; a++) {
-    rgb.setPixel(a, 0x0f);
-    delay(10);
-  }
-
-  for (int a = 0; a < LED_COUNT; a++) {
-    rgb.setPixel(a, a << 16);
-    delay(20);
-  }
-
-  for (int a = 0; a < LED_COUNT; a++) {
-    rgb.setPixel(a, a << 8);
-    delay(20);
-  }
-
-  for (int a = 0; a < LED_COUNT; a++) {
-    rgb.setPixel(a, a);
-    delay(20);
-  }
-
-  //fade
-  for (int a = 0; a < 96; a++) {
-    rgb.fill(a);  //BLUE
-    delay(10);
-  }
-  for (int a = 96; a > 0; a--) {
-    rgb.fill(a);  //BLUE
-    delay(10);
-  }
-
-  //fade
-  for (int a = 0; a < 96; a++) {
-    rgb.fill(a << 8);
-    delay(10);
-  }
-  for (int a = 96; a > 0; a--) {
-    rgb.fill(a << 8);
-    delay(10);
-  }
-
-  //fade
-  for (int a = 0; a < 96; a++) {
-    rgb.fill(a);
-    delay(10);
-  }
-  for (int a = 96; a > 0; a--) {
-    rgb.fill(a);
-    delay(10);
-  }
-
-  //fade
-  for (int a = 0; a < 96; a++) {
-    rgb.fill(a << 16);
-    delay(10);
-  }
-  for (int a = 96; a > 0; a--) {
-    rgb.fill(a << 16);
-    delay(10);
-  }
-
-  //fade
-  for (int a = 0; a < 96; a++) {
-    rgb.fill((a << 16) | (a << 8));
-    delay(10);
-  }
-  for (int a = 96; a > 0; a--) {
-    rgb.fill((a << 16) | (a << 8));
-    delay(10);
-  }
-
-  //fade
-  for (int a = 0; a < 96; a++) {
-    rgb.fill((a << 8) | a);
-    delay(10);
-  }
-  for (int a = 96; a > 0; a--) {
-    rgb.fill((a << 8) | a);
-    delay(10);
-  }
-
-  //fade
-  for (int a = 0; a < 96; a++) {
-    rgb.fill((a << 16) | a);
-    delay(10);
-  }
-  for (int a = 96; a > 0; a--) {
-    rgb.fill((a << 16) | a);
-    delay(10);
-  }
-
-  //fade
-  for (int a = 0; a < 96; a++) {
-    rgb.fill((a << 8) | (a << 16) | a);
-    delay(10);
-  }
-  for (int a = 96; a > 0; a--) {
-    rgb.fill((a << 8) | (a << 16) | a);
-    delay(10);
-  }
 }
 
