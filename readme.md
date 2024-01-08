@@ -1,4 +1,8 @@
-# 801bot 
+# Color Picker - 
+
+Forked 801bot code that has been repurposed.  Currently being used as a color picker for the LED on an Adafruit QT Py ESP32-S3 (the cutest ESP32-S3!)
+
+# Original: 801bot 
 
 Small robot with WiFi control. Designed for the 801Labs Hackerspace's 2023 Holiday Project, but open for everyone.
 
