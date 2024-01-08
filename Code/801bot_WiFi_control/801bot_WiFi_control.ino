@@ -8,26 +8,25 @@
 #include "html.h"
 #include <Bonezegei_WS2812.h>
 
-#define LED_COUNT 2
-Bonezegei_WS2812 rgb(38, LED_COUNT);
-
+#define LED_COUNT 1
 
 // ------ Begin User Settings ------
-const char* ssid = "lanbeforetime";
-const char* password = "littlefoot";
+const char* ssid = "SECRET-AGENT";
+const char* password = "your-password";
 
-const int rServoPin = 33;
-const int lServoPin = 34;
-const int eyesPin = 38;
+// const int rServoPin = 33;
+// const int lServoPin = 34;
 
-const int rDeadzoneVal = 1500;
-const int lDeadzoneVal = 1500;
+Bonezegei_WS2812 rgb(PIN_NEOPIXEL, LED_COUNT);
 
-const int turnFactor = 3;
+// const int rDeadzoneVal = 1500;
+// const int lDeadzoneVal = 1500;
+
+// const int turnFactor = 3;
 
 // ------ End User Settings ------
 
-Servo servo = Servo();
+// Servo servo = Servo();
 
 AsyncWebServer server(80);
 AsyncWebSocket ws("/ws");
@@ -44,21 +43,22 @@ void onEvent(AsyncWebSocket * server, AsyncWebSocketClient * client, AwsEventTyp
     yValue = message.substring(1).toInt();
   }
 
-  updateServos();
+//  updateServos();
 }
 
 void setup() {
-  // Not sure what this does
-  Serial.begin(115200);
+  pinMode(NEOPIXEL_POWER, OUTPUT);
+  digitalWrite(NEOPIXEL_POWER, HIGH);
 
+  Serial.begin(115200);
+  Serial.print("Begin");
+  
   // Color stuff
   rgb.begin();
 
   // Servo stuff
-  Serial.print("Begin");
-
-  servo.attach(lServoPin);
-  servo.attach(rServoPin);
+  // servo.attach(lServoPin);
+  // servo.attach(rServoPin);
 
   WiFi.softAP(ssid, password);
 
@@ -77,7 +77,7 @@ void setup() {
   server.begin();
 
 }
-
+/*
 void updateServos() {
   Serial.println("starting updateServos()");
   
@@ -101,6 +101,7 @@ void updateServos() {
     servo.pause();
   }
 }
+*/
 
 /*
   Strip RGB LED Demo WS2812 LED 
